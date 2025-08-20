@@ -1,25 +1,19 @@
+// server.js
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
 const authRoutes = require("./routes/auth.routes");
-
 const app = express();
-app.use(cors());
+
+app.set("trust proxy", 1);
+app.use(cors());              // permissive; tighten later if you want
 app.use(express.json());
 
-// ✅ Mount routes
+app.get("/", (_req, res) => res.send("Backend running ✅"));
+app.get("/api/health", (_req, res) => res.json({ ok: true }));
+
 app.use("/api/auth", authRoutes);
 
-// ✅ Root route
-app.get("/", (req, res) => {
-  res.send("Backend running ✅");
-});
-
-// ✅ Simple GET test route for auth
-app.get("/api/auth", (req, res) => {
-  res.send("Auth API works ✅");
-});
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server on http://localhost:${PORT}`));
