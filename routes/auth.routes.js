@@ -45,7 +45,7 @@ router.post("/send-otp", async (req, res) => {
       to: email,
       subject: "Your Family Chat OTP",
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
-      html: `<p>Your OTP is <b>${otp}</b>. Make sure otp will expire in <b>5 minutes</b>.</p>`,
+      html: `<p>Your OTP is <b>${otp}</b>. It will expire in <b>5 minutes</b>.</p>`,
     });
 
     return res.json({ success: true, message: "OTP sent successfully" });
